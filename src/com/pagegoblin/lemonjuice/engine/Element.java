@@ -38,7 +38,7 @@ abstract public class Element {
     
     public void print(Writer out, TemplateContext model) throws Exception {
         Object value = evaluate(model);
-        
+
         if (value instanceof Printer) {
             ((Printer)value).print(out);
         } else if (value instanceof Template) {
@@ -84,7 +84,7 @@ abstract public class Element {
         return result;
     }
     
-    private TemplateContext pushContext(Template template, TemplateContext model) throws Exception {
+    protected TemplateContext pushContext(Template template, TemplateContext model) throws Exception {
         TemplateContext context = model.child();
         String[] keys = template.getParameters();
 

@@ -648,8 +648,6 @@ public class Parser {
             element = bless(column, new ApplyElement(element,
                                              parameters.toArray(new Element[parameters.size()]),
                                              keys == null ? null : keys.toArray(new String[keys.size()])));
-        } else if (element instanceof InlineElement) {
-            element = bless(column, new ApplyElement(element, new Element[0]));
         }
         
         return element;
@@ -834,7 +832,7 @@ public class Parser {
         TemplateContext context = new TemplateContext();
         Template template = null;
         try {
-            template = context.find("/home/manuel4/test/lemon/test.txt");
+            template = context.find("/home/manuel4/test/lemon/test4.txt");
             context.set("poop", "Hello");
             context.set("obj", new Lobster());
             

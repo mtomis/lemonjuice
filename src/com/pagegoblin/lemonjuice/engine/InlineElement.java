@@ -43,7 +43,7 @@ class InlineElement extends Element {
         String name = parent.getLocation() + key;
         Template template = model.find(name);
         if (template != null) {
-            template.print(out, model.child());
+            template.print(out, pushContext(template, model));
         }
     }
 }
