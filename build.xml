@@ -54,8 +54,8 @@
         <delete dir="${target}/api"/>
         
         <javadoc 
-            packagenames="com.pagegoblin.lemonjuice.*"
-            excludepackagenames="com.pagegoblin.lemonjuice.property.*"
+            packagenames="com.codegremlins.lemonjuice.*"
+            excludepackagenames="com.codegremlins.lemonjuice.property.*"
             sourcepath="src"
             defaultexcludes="yes"
             destdir="target/api"
