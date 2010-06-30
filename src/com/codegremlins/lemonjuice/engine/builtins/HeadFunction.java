@@ -39,7 +39,7 @@ public class HeadFunction extends FunctionElement {
                 number = 1;
             }
             
-            return list.subList(0, (int)number);
+            return list.subList(0, Math.min((int)number, list.size()));
         } else {
             return null; // fixme
         }
