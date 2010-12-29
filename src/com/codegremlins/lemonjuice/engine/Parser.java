@@ -38,6 +38,7 @@ import com.codegremlins.lemonjuice.engine.builtins.HeadFunction;
 import com.codegremlins.lemonjuice.engine.builtins.JoinFunction;
 import com.codegremlins.lemonjuice.engine.builtins.LengthFunction;
 import com.codegremlins.lemonjuice.engine.builtins.LookupFunction;
+import com.codegremlins.lemonjuice.engine.builtins.RangeFunction;
 import com.codegremlins.lemonjuice.engine.builtins.ReverseFunction;
 import com.codegremlins.lemonjuice.engine.builtins.ShuffleFunction;
 import com.codegremlins.lemonjuice.engine.builtins.SortFunction;
@@ -528,6 +529,8 @@ public class Parser {
             return bless(column, new XMLFunction(elements));
         } else if ("url".equals(name)) {
             return bless(column, new URLFunction(elements));
+        } else if ("range".equals(name)) {
+            return bless(column, new RangeFunction(elements));
         } else {
             return error("builtin");
         }

@@ -19,6 +19,7 @@
 package com.codegremlins.lemonjuice.engine.builtins;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -36,8 +37,8 @@ public class ShuffleFunction extends FunctionElement {
     public Object evaluate(TemplateContext model) throws Exception {
         if (parameters().length == 1) {
             Object v1 = parameters()[0].evaluate(model);
-            if (v1 instanceof List) {
-                List result = new ArrayList((List)v1);
+            if (v1 instanceof Collection) {
+                List result = new ArrayList((Collection)v1);
                 Collections.shuffle(result);
                 return result;
             } else {

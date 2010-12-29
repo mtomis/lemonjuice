@@ -32,7 +32,7 @@ class Scanner {
         String[] builtins = {
                 "append", "equal", "head", "tail", "join", "length",
                 "shuffle", "strip", "lookup", "include", "flatten",
-                "xml", "url", "split", "reverse", "sort"
+                "xml", "url", "split", "reverse", "sort", "range"
                 };
         
         for (String key : builtins) {
