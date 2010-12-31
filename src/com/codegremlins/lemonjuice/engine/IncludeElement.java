@@ -69,4 +69,9 @@ class IncludeElement extends Element {
         String name = parent.getLocation() + value;
         return model.find(name);
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }

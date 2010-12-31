@@ -20,17 +20,10 @@ package com.codegremlins.lemonjuice.engine;
 
 import java.io.IOException;
 import java.io.Reader;
-import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.codegremlins.lemonjuice.Renderable;
 import com.codegremlins.lemonjuice.Template;
-import com.codegremlins.lemonjuice.TemplateContext;
-import com.codegremlins.lemonjuice.TemplateFunction;
-import com.codegremlins.lemonjuice.TemplateRenderer;
 import com.codegremlins.lemonjuice.engine.builtins.AppendFunction;
 import com.codegremlins.lemonjuice.engine.builtins.EqualsFunction;
 import com.codegremlins.lemonjuice.engine.builtins.FlattenFunction;
@@ -831,55 +824,55 @@ public class Parser {
         return element;
     }
     
-    public static void main(String[] args) {
-        TemplateContext context = new TemplateContext();
-        Template template = null;
-        try {
-            template = context.find("/home/manuel4/test/lemon/test4.txt");
-            context.set("poop", "Hello");
-            context.set("obj", new Lobster());
-            
-            Map map = new HashMap();
-            map.put("person", "Jim");
-            
-            context.set("map", map);
-            
-            context.set("jump", new Element() {
-                @Override
-                public Object evaluate(TemplateContext model) throws Exception {
-                    return "I jump";
-                }
-            });
-            
-            context.set("flop", new TemplateFunction() {
-                public Object evaluate(Object[] parameters) {
-                    if (parameters.length > 0) {
-                        return ("" + parameters[0]).toUpperCase();
-                    }
-                    return null;
-                }
-            });
-            
-            StringWriter out = new StringWriter();
-            
-            long last = System.currentTimeMillis();
-            if (template != null) {
-                template.print(out, context);
-            }
-            System.out.println("Rendering Time: " + (System.currentTimeMillis() - last));
-            
-            System.out.println(out.toString());
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
-    public static class Lobster implements Renderable {
-        public Object render(TemplateRenderer context) {
-            return new Object() {
-                private String name = "Big lobster";
-                private String jim  = "Small lobster";
-            };
-        }
-    }
+//    public static void main(String[] args) {
+//        TemplateContext context = new TemplateContext();
+//        Template template = null;
+//        try {
+//            template = context.find("/home/manuel4/test/lemon/test4.txt");
+//            context.set("poop", "Hello");
+//            context.set("obj", new Lobster());
+//            
+//            Map map = new HashMap();
+//            map.put("person", "Jim");
+//            
+//            context.set("map", map);
+//            
+//            context.set("jump", new Element() {
+//                @Override
+//                public Object evaluate(TemplateContext model) throws Exception {
+//                    return "I jump";
+//                }
+//            });
+//            
+//            context.set("flop", new TemplateFunction() {
+//                public Object evaluate(Object[] parameters) {
+//                    if (parameters.length > 0) {
+//                        return ("" + parameters[0]).toUpperCase();
+//                    }
+//                    return null;
+//                }
+//            });
+//            
+//            StringWriter out = new StringWriter();
+//            
+//            long last = System.currentTimeMillis();
+//            if (template != null) {
+//                template.print(out, context);
+//            }
+//            System.out.println("Rendering Time: " + (System.currentTimeMillis() - last));
+//            
+//            System.out.println(out.toString());
+//        } catch (Exception ex) {
+//            ex.printStackTrace();
+//        }
+//    }
+//    
+//    public static class Lobster implements Renderable {
+//        public Object render(TemplateRenderer context) {
+//            return new Object() {
+//                private String name = "Big lobster";
+//                private String jim  = "Small lobster";
+//            };
+//        }
+//    }
 }

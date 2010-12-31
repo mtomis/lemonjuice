@@ -31,4 +31,9 @@ class ValueElement extends Element {
     public Object evaluate(TemplateContext model) throws Exception {
         return model.get(key);
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }

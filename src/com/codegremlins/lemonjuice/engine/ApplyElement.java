@@ -158,4 +158,9 @@ class ApplyElement extends Element {
             return model.child();
         }
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }

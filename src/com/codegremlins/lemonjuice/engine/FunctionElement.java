@@ -92,4 +92,9 @@ abstract public class FunctionElement extends Element {
         
         return null;
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }

@@ -35,6 +35,8 @@ abstract public class Element {
     private String templateName;
     
     abstract public Object evaluate(TemplateContext model) throws Exception;
+
+    abstract public void visit(TemplateElementVisitor context) throws Exception;
     
     public void print(Writer out, TemplateContext model) throws Exception {
         Object value = evaluate(model);

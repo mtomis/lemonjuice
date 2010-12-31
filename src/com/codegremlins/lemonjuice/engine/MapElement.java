@@ -44,4 +44,9 @@ class MapElement extends Element {
         
         return map;
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }

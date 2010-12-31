@@ -38,4 +38,9 @@ class AndElement extends Element {
         
         return true;
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }

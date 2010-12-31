@@ -31,4 +31,9 @@ class ConstantElement extends Element {
     public Object evaluate(TemplateContext model) throws Exception {
         return value;
     }
+
+    @Override
+    public void visit(TemplateElementVisitor context) throws Exception {
+        context.visit(this);
+    }
 }
