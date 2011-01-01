@@ -1,7 +1,24 @@
 package com.codegremlins.lemonjuice.engine;
 
+import java.io.PrintWriter;
+import java.io.Writer;
+
 public class JavascriptTemplateVisitor implements TemplateElementVisitor {
-    private StringBuilder out = new StringBuilder();
+    private PrintWriter out;
+    
+    public JavascriptTemplateVisitor(Writer out) {
+        if (out instanceof PrintWriter) {
+            this.out = (PrintWriter)out;
+        } else {
+            this.out = new PrintWriter(out);
+        }
+        
+        init(this.out);
+    }
+    
+    private void init(PrintWriter out) {
+        out.println("function _true(value) {return value != null && value != undef && value != false;}");
+    }
     
     public Object visit(AndElement element) throws Exception {
         // out.print("(");

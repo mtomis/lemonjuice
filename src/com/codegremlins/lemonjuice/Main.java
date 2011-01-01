@@ -28,6 +28,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
+import com.codegremlins.lemonjuice.engine.JavascriptTemplateVisitor;
+
 public final class Main {
     private TemplateContext context = new TemplateContext();
     private Settings settings = new Settings();
@@ -73,21 +75,25 @@ public final class Main {
         Writer out = new OutputStreamWriter(System.out);
         
         if (template != null) {
-            template.print(out, context);
+            if (settings.outputJavascript) {
+                template.visit(new JavascriptTemplateVisitor(out));// print(out, context);
+            } else {
+                template.print(out, context);
+            }
         }
         
         out.flush();
     }
     
     private static class Settings {
-        public String output = "normal";
+        public boolean outputJavascript = false;
         
         public void parse(List<String> args) {
             for (ListIterator<String> i = args.listIterator(); i.hasNext();) {
                 String item = i.next().trim();
                 if (item.startsWith("-")) {
                     if ("-js".equals(item) || "-javascript".equals(item)) {
-                        output = "javascript";
+                        outputJavascript = true;
                     }
                 } else {
                     continue;
