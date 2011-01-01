@@ -23,15 +23,25 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ListIterator;
 
 public final class Main {
     private TemplateContext context = new TemplateContext();
+    private Settings settings = new Settings();
     
     public static void main(String[] args) {
-        new Main().run(args);
+        new Main().run(new ArrayList<String>(Arrays.asList(args)));
+    }
+
+    private void run(List<String> args) {
+        settings.parse(args);
+        runFiles(args);
     }
     
-    private void run(String[] files) {
+    private void runFiles(List<String> files) {
         for (String name : files) {
             File file = new File(name);
             if (!file.exists()) {
@@ -67,5 +77,23 @@ public final class Main {
         }
         
         out.flush();
+    }
+    
+    private static class Settings {
+        public String output = "normal";
+        
+        public void parse(List<String> args) {
+            for (ListIterator<String> i = args.listIterator(); i.hasNext();) {
+                String item = i.next().trim();
+                if (item.startsWith("-")) {
+                    if ("-js".equals(item) || "-javascript".equals(item)) {
+                        output = "javascript";
+                    }
+                } else {
+                    continue;
+                }
+                i.remove();
+            }
+        }
     }
 }
