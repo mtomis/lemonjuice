@@ -89,6 +89,18 @@ public class TemplateContext {
         }
     }
 
+    public Object has(String name) {
+        if (model.containsKey(name)) {
+            return true;
+        }
+
+        if (parent != null) {
+            return parent.has(name);
+        } else {
+            return false;
+        }
+    }
+
     public TemplateContext set(String name, Object value) {
         model.put(name, renderer.render(value));
         return this;
