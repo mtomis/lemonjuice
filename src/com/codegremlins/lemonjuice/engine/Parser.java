@@ -613,7 +613,50 @@ public class Parser {
             List<Element> parameters = new ArrayList<Element>();
             
             in.peek();
-            if (in.isKeyword()) {
+            if (in.isSymbol("(")) {
+                in.read();
+                in.peek();
+
+                if (in.isKeyword()) {
+                    keys = new ArrayList<String>();
+                    
+                    for (;;) {
+                        if (!checkEnd()) {
+                            in.read();
+                            if (!in.isKeyword()) {
+                                error("Expected keyword parameter name instead `" + in.getToken() + "'");
+                            }
+                            
+                            keys.add(in.getToken());
+                            parameters.add(parseBasic());
+                            
+                            if (check(")")) {
+                                break;
+                            } else {
+                                expect(",");
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+                   
+                } else {
+                    keys = null;
+                    Object result = parseParenthesis(true);
+                    if (result instanceof List) {
+                        parameters = (List<Element>)result;
+                    } else {
+                        parameters.add((Element)result);
+                        for (;;) {
+                            if (!checkEnd()) {
+                                parameters.add(parseBasic());
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                }
+            } else if (in.isKeyword()) {
                 keys = new ArrayList<String>();
                 
                 for (;;) {
@@ -680,7 +723,7 @@ public class Parser {
         } else if (in.isBuiltin()) {
             return parseBuiltin();
         } else if (in.isSymbol("(")) {
-            element = parseParenthesis();
+            element = (Element)parseParenthesis(false);
         } else if (in.isSymbol("@")) {
             return parseInline();
         } else if (in.isSymbol("macro")) {
@@ -789,7 +832,7 @@ public class Parser {
     }
     
     
-    private Element parseParenthesis() throws IOException {
+    private Object parseParenthesis(boolean possibleParameters) throws IOException {
         in.peek();
         int column = pray();
 
@@ -801,6 +844,25 @@ public class Parser {
         
         Element element = parseSubStatement();
             
+        if (possibleParameters && check(",")) {
+            List<Element> ls = new ArrayList<Element>();
+            ls.add(element);
+
+            for (;;) {
+                if (check(")")) {
+                    return ls;
+                }
+                
+                ls.add(parseSubStatement());
+                
+                if (check(")")) {
+                    return ls;
+                } else if (!check(",")) {
+                    error("Expected `,' instead of `" + in.getToken() + "'");
+                }
+            }
+        }
+        
         if (check(";")) {
             List<Element> ls = new ArrayList<Element>();
             ls.add(element);
