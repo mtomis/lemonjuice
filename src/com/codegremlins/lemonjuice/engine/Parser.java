@@ -148,8 +148,13 @@ public class Parser {
     
     private Element parseTag() throws IOException {
         List<Element> elements = new ArrayList<Element>();
+        
         in.peek();
         int column = pray();
+
+        if (check("}")) {
+            return bless(column, new ConstantElement(null));
+        }
         
         for (;;) {
             Element element = parseStatement();

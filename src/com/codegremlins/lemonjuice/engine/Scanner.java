@@ -171,6 +171,11 @@ class Scanner {
         int c = in.peek();
         if (c == '#') {
             for (;;) {
+                c = in.peek();
+                if (c == '}') {
+                    return true;
+                }
+                
                 c = in.read();
                 if (c == -1 || c == '\n' || c == '\r') {
                     return true;
