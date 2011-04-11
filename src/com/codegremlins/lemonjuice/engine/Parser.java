@@ -423,6 +423,8 @@ public class Parser {
         List<String> parameters = new ArrayList<String>();
         List<Element> defaults = new ArrayList<Element>();
         
+        boolean parenthesis = check("(");
+        
         if (!peek("}")) {
             for (;;) {
                 in.read();
@@ -434,6 +436,15 @@ public class Parser {
                     defaults.add(parseBasic());
                 } else {
                     error("Expected parameter name instead of `" + in.getToken() + "'");
+                }
+        
+                if (parenthesis) {
+                    if (check(")")) {
+                        expect("}");
+                        break;
+                    } else {
+                        expect(",");
+                    }
                 }
                 
                 if (peek("}")) {
@@ -794,6 +805,8 @@ public class Parser {
         
         List<String> parameters = new ArrayList<String>();
         List<Element> defaults = new ArrayList<Element>();
+
+        boolean parenthesis = check("(");
         
         if (!check("}")) {
             for (;;) {
@@ -806,6 +819,15 @@ public class Parser {
                     defaults.add(parseBasic());
                 } else {
                     error("Expected parameter name instead of `" + in.getToken() + "'");
+                }
+                
+                if (parenthesis) {
+                    if (check(")")) {
+                        expect("}");
+                        break;
+                    } else {
+                        expect(",");
+                    }
                 }
                 
                 if (check("}")) {
