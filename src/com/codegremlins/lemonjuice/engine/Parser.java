@@ -758,7 +758,13 @@ public class Parser {
                 
                 if (text.contains("${")) {
                     Parser in = new Parser(new StringReader(text), template, this.in.line());
-                    element = bless(column, in.parse());
+                    element = in.parse();
+                    
+                    if (element instanceof SequenceElement) {
+                        element = new AppendFunction(((SequenceElement)element).getElements());
+                    }
+                    
+                    element = bless(column, element);
                 } else {
                     element = bless(column, new TextElement(text));
                 }
