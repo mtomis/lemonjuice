@@ -32,6 +32,11 @@ class PeekReader {
         this.in = in;
     }
     
+    public PeekReader(Reader in, int line) {
+        this.in = in;
+        this.line = line;
+    }
+
     private int next() throws IOException {
         int c = in.read();
         if (c == '\n') {

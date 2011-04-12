@@ -20,6 +20,7 @@ package com.codegremlins.lemonjuice.engine;
 
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,11 @@ public class Parser {
 
     public Parser(Reader in, Template template) {
         this.in = new Scanner(new PeekReader(in));
+        this.template = template;
+    }
+
+    private Parser(Reader in, Template template, int line) {
+        this.in = new Scanner(new PeekReader(in, line));
         this.template = template;
     }
 
@@ -748,7 +754,15 @@ public class Parser {
             in.read();
             
             if (in.isString()) {
-                element = bless(column, new TextElement(in.getToken()));
+                String text = in.getToken();
+                
+                if (text.contains("${")) {
+                    Parser in = new Parser(new StringReader(text), template, this.in.line());
+                    element = bless(column, in.parse());
+                } else {
+                    element = bless(column, new TextElement(text));
+                }
+                
                 return element;
             } else if (in.isNumber()) {
                 element = bless(column, new ConstantElement(new Long(in.getToken())));
