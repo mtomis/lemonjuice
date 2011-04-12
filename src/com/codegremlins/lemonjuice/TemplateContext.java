@@ -89,7 +89,7 @@ public class TemplateContext {
         }
     }
 
-    public Object has(String name) {
+    public boolean has(String name) {
         if (model.containsKey(name)) {
             return true;
         }
