@@ -499,13 +499,30 @@ public class Parser {
         List<Element> parameters = new ArrayList<Element>();
 
         if (!checkEnd()) {
-            Element value = parseBasic();
-            parameters.add(value);
-            for (;;) {
-                if (!checkEnd()) {
-                    parameters.add(parseBasic());
+            in.peek();
+            if (in.isSymbol("(")) {
+                Object result = parseParenthesis(true);
+                if (result instanceof List) {
+                    parameters = (List<Element>)result;
                 } else {
-                    break;
+                    parameters.add((Element)result);
+                    for (;;) {
+                        if (!checkEnd()) {
+                            parameters.add(parseBasic());
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            } else {
+                Element value = parseBasic();
+                parameters.add(value);
+                for (;;) {
+                    if (!checkEnd()) {
+                        parameters.add(parseBasic());
+                    } else {
+                        break;
+                    }
                 }
             }
         }
