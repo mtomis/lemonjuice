@@ -36,7 +36,7 @@ public class RangeFunction extends FunctionElement {
     public Object evaluate(TemplateContext model) throws Exception {
         final long start = number(model, 0);
         final long finish = number(model, 1);
-        
+
         return new List() {
             public boolean add(Object arg0) {
                 return false;
@@ -77,7 +77,7 @@ public class RangeFunction extends FunctionElement {
             }
 
             public Iterator iterator() {
-                return null;
+                return listIterator();
             }
 
             public int lastIndexOf(Object arg0) {
@@ -85,42 +85,42 @@ public class RangeFunction extends FunctionElement {
             }
 
             public ListIterator listIterator() {
-                  return new ListIterator() {
-                  private long current = start;
-                  
-                  public boolean hasNext() {
-                      return current < finish;
-                  }
-      
-                  public Object next() {
-                      return current++;
-                  }
-      
-                  public void remove() {
-                  }
+                return new ListIterator() {
+                    private long current = start;
 
-                public void add(Object arg0) {
-                }
+                    public boolean hasNext() {
+                        return current <= finish;
+                    }
 
-                public boolean hasPrevious() {
-                    return false;
-                }
+                    public Object next() {
+                        return current++;
+                    }
 
-                public int nextIndex() {
-                    return 0;
-                }
+                    public void remove() {
+                    }
 
-                public Object previous() {
-                    return null;
-                }
+                    public void add(Object arg0) {
+                    }
 
-                public int previousIndex() {
-                    return 0;
-                }
+                    public boolean hasPrevious() {
+                        return false;
+                    }
 
-                public void set(Object arg0) {
-                }
-              };
+                    public int nextIndex() {
+                        return 0;
+                    }
+
+                    public Object previous() {
+                        return null;
+                    }
+
+                    public int previousIndex() {
+                        return 0;
+                    }
+
+                    public void set(Object arg0) {
+                    }
+                };
             }
 
             public ListIterator listIterator(int arg0) {
