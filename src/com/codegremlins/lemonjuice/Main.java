@@ -54,6 +54,7 @@ public final class Main {
                 try {
                     runTemplate(file);
                 } catch (IOException ex) {
+                    ex.printStackTrace();
                     System.err.print("ERROR: Cannot process `" + name + "':");
                     System.err.println(ex.getMessage());
                 } catch (TemplateException ex) {

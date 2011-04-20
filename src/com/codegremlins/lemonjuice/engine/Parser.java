@@ -250,12 +250,21 @@ public class Parser {
             return bless(column, new MapElement(keys.toArray(new String[ls.size()]), ls.toArray(new Element[ls.size()])));
             
         } else {
+            boolean first = true;
             for (;;) {
                 if (check("]")) {
                     break;
                 }
     
                 ls.add(parseExpression());
+                if (first && check("..")) {
+                    ls.add(parseExpression());
+                    expect("]");
+                    return bless(column, new RangeFunction(ls.toArray(new Element[ls.size()])));
+                }
+                
+                first = false;
+                
                 if (check("]")) {
                     break;
                 } else {
