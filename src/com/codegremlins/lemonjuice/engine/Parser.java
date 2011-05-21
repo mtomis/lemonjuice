@@ -50,7 +50,7 @@ public class Parser {
 
     private static final String[] IF_TERMINATORS = {"else", "end"};
     private static final String[] END_TERMINATOR = {"end"};
-    private static final String[] FOR_TERMINATORS = {"do", "end"};
+    private static final String[] FOR_TERMINATORS = {"do", "else", "end"};
 
     public Parser(Reader in, Template template) {
         this.in = new Scanner(new PeekReader(in));
@@ -375,7 +375,15 @@ public class Parser {
                 if (check(",")) {
                 } else {
                     if (check("else")) {
-                        otherwise = parseExpression();
+                    	in.peek();
+                    	
+                        if (in.isSymbol("}")) {
+                            otherwise = parseBody(END_TERMINATOR);
+            	            expect("end");
+            	            check("for");
+                        } else {
+                            otherwise = parseExpression();
+                        }
                     }
                     
                     return bless(column, new ForElement(generators.toArray(new Element[generators.size()]),
@@ -414,11 +422,19 @@ public class Parser {
 
             Element otherwise = null;
             if (check("else")) {
-                otherwise = parseExpression();
+            	in.peek();
+            	
+                if (in.isSymbol("}")) {
+                    otherwise = parseBody(END_TERMINATOR);
+    	            expect("end");
+    	            check("for");
+                } else {
+                    otherwise = parseExpression();
+                }
+            } else {
+	            expect("end");
+	            check("for");
             }
-            
-            expect("end");
-            check("for");
             
             return bless(column, new ForInlineElement(names, lists.toArray(new Element[generators.size()]),
                     actions.toArray(new Element[actions.size()]),
