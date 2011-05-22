@@ -1,6 +1,6 @@
 /*
  *  lemonjuice - Java Template Engine.
- *  Copyright (C) 2009 Manuel Tomis support@pagegoblin.com
+ *  Copyright (C) 2009-2011 Manuel Tomis manuel@codegremlins.com
  *
  *  This library is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
