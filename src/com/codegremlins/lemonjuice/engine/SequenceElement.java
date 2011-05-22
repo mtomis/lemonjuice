@@ -27,7 +27,52 @@ class SequenceElement extends Element {
     private Element[] elements;
 
     public SequenceElement(List<Element> elements) {
+    	compress(elements);
         this.elements = elements.toArray(new Element[elements.size()]);
+    }
+    
+    private void compress(List<Element> elements) {
+    	int counter = 0;
+    	for (;;) {
+    		if (counter >= elements.size()) {
+    			return;
+    		}
+    		
+	    	if (isCompressable(elements, counter + 1)) { 
+	    		if (isRemovable(elements, counter)) {
+	    			elements.remove(counter);
+	    		}
+	    	}
+
+	    	counter++;
+    	}
+    }
+
+    private boolean isCompressable(List<Element> elements, int counter) {
+    	if (counter == -1) {
+    		return true;
+    	}
+    	
+    	if (counter >= elements.size()) {
+    		return false;
+    	}
+    	
+    	Element element = elements.get(counter);
+    	return element instanceof DefineElement || element instanceof SetElement;
+    }
+    
+    private boolean isRemovable(List<Element> elements, int counter) {
+    	if (counter >= elements.size()) {
+    		return false;
+    	}
+
+    	Element element = elements.get(counter);
+    	if (element instanceof TextElement) {
+    		String text = ((TextElement)element).getValue().trim();
+    		return text.length() == 0;
+    	} else {
+    		return false;
+    	}
     }
 
     public void print(Writer out, TemplateContext model) throws Exception {
