@@ -39,7 +39,7 @@ public class TailFunction extends FunctionElement {
                 number = 1;
             }
             
-            return list.subList((int)number, list.size());
+            return list.subList(Math.min((int)number, list.size()), list.size());
         } else {
             return null; // fixme
         }
