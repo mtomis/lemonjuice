@@ -213,9 +213,26 @@ class Scanner {
     private void parseString(char end) throws IOException {
         in.read();
         
+        int count = 1;
+        boolean multiline = false;
+        
+        for (int i = 0; i < 2; i++) {
+        	int c = in.peek();
+        	if (c == end) {
+        		in.read();
+        		count++;
+        	}
+        }
+        
+        if (count == 2) {
+        	return;
+        } else if (count == 3) {
+        	multiline = true;
+        }
+        
         int c = in.read();
         while (c != end) {
-            if (c == '\n' || c == -1) {
+            if ((c == '\n' && !multiline) || c == -1) {
                 error("Unterminated string");
             }
             
