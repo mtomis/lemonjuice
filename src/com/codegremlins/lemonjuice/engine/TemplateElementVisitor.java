@@ -21,4 +21,5 @@ public interface TemplateElementVisitor {
     public Object visit(SetElement element) throws Exception;
     public Object visit(TextElement element) throws Exception;
     public Object visit(ValueElement element) throws Exception;
+    public Object visit(EqualElement element) throws Exception;
 }

@@ -133,7 +133,7 @@ public class Parser {
         return (in.isSymbol("}") || in.isSymbol(")") || in.isSymbol("]") || in.isSymbol(";")
              || in.isSymbol(",") || in.isSymbol("||") || in.isSymbol("&&") || in.isSymbol("..")
              || in.isSymbol("do") || in.isSymbol("else") || in.isSymbol("then")
-             || in.isSymbol("in") || in.isSymbol("+"));
+             || in.isSymbol("in") || in.isSymbol("+") || in.isSymbol("!=") || in.isSymbol("=="));
     }
 
     private boolean check(String text) throws IOException {
@@ -626,7 +626,7 @@ public class Parser {
         in.peek();
         int column = pray();
 
-        Element element = parseOperatorsJoin();
+        Element element = parseOperatorsEqual();
         in.peek();
         if (in.isSymbol("&&")) {
             List<Element> parameters = new ArrayList<Element>();
@@ -634,7 +634,7 @@ public class Parser {
             
             while (in.isSymbol("&&")) {
                 in.read();
-                parameters.add(parseOperatorsJoin());
+                parameters.add(parseOperatorsEqual());
                 in.peek();
             }
             
@@ -643,6 +643,25 @@ public class Parser {
         
         return element;
     }
+    
+    
+    private Element parseOperatorsEqual() throws IOException {
+        in.peek();
+        int column = pray();
+
+        Element element = parseOperatorsJoin();
+        in.peek();
+        
+        if (in.isSymbol("==")) {
+            in.read();
+            element = bless(column, new EqualElement(true, element, parseOperatorsJoin()));
+        } else if (in.isSymbol("!=")) {
+            in.read();
+            element = bless(column, new EqualElement(false, element, parseOperatorsJoin()));
+        }
+        
+        return element;
+    }    
 
     private Element parseOperatorsJoin()  throws IOException {
         in.peek();

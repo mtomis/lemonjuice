@@ -21,6 +21,7 @@ package com.codegremlins.lemonjuice.engine.builtins;
 import com.codegremlins.lemonjuice.TemplateContext;
 import com.codegremlins.lemonjuice.engine.Element;
 import com.codegremlins.lemonjuice.engine.FunctionElement;
+import com.codegremlins.lemonjuice.util.Functions;
 
 public class EqualsFunction extends FunctionElement {
     public EqualsFunction(Element[] parameters) {
@@ -40,7 +41,7 @@ public class EqualsFunction extends FunctionElement {
             
             // TODO: put equals somewhere else to acount for nulls
             if (!first) {
-                if (last instanceof Number && value instanceof Number) {
+/*                if (last instanceof Number && value instanceof Number) {
                     if (last instanceof Long) {
                         if (((Number)last).longValue() != ((Number)value).longValue()) {
                             return false;
@@ -54,7 +55,11 @@ public class EqualsFunction extends FunctionElement {
                     }
                 } else if (!last.equals(value)) {
                     return false;
-                }
+                }*/
+            	
+            	if (!Functions.compareEqual(last, value)) {
+            		return false;
+            	}
             } else {
                 last = value;
                 first = false;

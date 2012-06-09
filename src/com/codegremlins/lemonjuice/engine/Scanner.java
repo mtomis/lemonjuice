@@ -106,9 +106,14 @@ class Scanner {
             type = Type.SYMBOL;
             out.append((char)in.read());
             
-            if (c == '&' || c == '|' || c == '.') {
+            if (c == '&' || c == '|' || c == '.' || c == '=') {
                 int d = in.peek();
                 if (d == c) {
+                    out.append((char)in.read());
+                }
+            } else if (c == '!') {
+                int d = in.peek();
+                if (d == '=') {
                     out.append((char)in.read());
                 }
             }

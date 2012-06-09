@@ -28,8 +28,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.codegremlins.lemonjuice.engine.JavascriptTemplateVisitor;
-
 public final class Main {
     private TemplateContext context = new TemplateContext();
     private Settings settings = new Settings();
@@ -76,11 +74,7 @@ public final class Main {
         Writer out = new OutputStreamWriter(System.out);
         
         if (template != null) {
-            if (settings.outputJavascript) {
-                template.visit(new JavascriptTemplateVisitor(out));// print(out, context);
-            } else {
-                template.print(out, context);
-            }
+	        template.print(out, context);
         }
         
         out.flush();
