@@ -91,11 +91,6 @@ class SequenceElement extends Element {
         return last;
     }
 
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
-
     public Element[] getElements() {
         return elements;
     }

@@ -46,9 +46,4 @@ class InlineElement extends Element {
             template.print(out, pushContext(template, model));
         }
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

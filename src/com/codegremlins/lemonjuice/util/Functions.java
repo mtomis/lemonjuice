@@ -38,4 +38,32 @@ public class Functions {
         
         return left.equals(right);
     }
+    
+	public static String escape(String input) {
+		if (input == null) {
+			return "";
+		}
+		
+		StringBuilder out = new StringBuilder();
+		
+		for (int i = 0; i < input.length(); i++) {
+			char c = input.charAt(i);
+			
+			if (c == '<') {
+				out.append("&lt;");
+			} else if (c == '>') {
+				out.append("&gt;");
+			} else if (c == '&') {
+				out.append("&amp;");
+			} else if (c == '"') {
+				out.append("&quot;");
+			} else if (c == '\'') {
+				out.append("&#39;");
+			} else {
+				out.append(c);
+			}
+		}
+		
+		return out.toString();
+	}    
 }

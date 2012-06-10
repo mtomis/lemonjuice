@@ -34,9 +34,4 @@ class SetElement extends Element {
         model.set(key, element == null ? true : element.evaluate(model));
         return null;
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

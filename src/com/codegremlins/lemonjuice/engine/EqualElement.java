@@ -39,11 +39,4 @@ class EqualElement extends Element {
         
         return condition == Functions.compareEqual(lvalue, rvalue);
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
-    
-
 }

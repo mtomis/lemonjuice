@@ -39,9 +39,4 @@ class PropertyElement extends Element {
         
         return getValue(value, key);
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

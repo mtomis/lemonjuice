@@ -147,9 +147,4 @@ class ForElement extends Element {
     public Object evaluate(TemplateContext model) throws Exception {
         return null;
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

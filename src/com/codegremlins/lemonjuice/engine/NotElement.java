@@ -37,9 +37,4 @@ class NotElement extends Element {
             return Boolean.FALSE.equals(value);
         }
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

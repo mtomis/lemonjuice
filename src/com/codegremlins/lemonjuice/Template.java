@@ -27,7 +27,6 @@ import java.io.Writer;
 
 import com.codegremlins.lemonjuice.engine.Element;
 import com.codegremlins.lemonjuice.engine.Parser;
-import com.codegremlins.lemonjuice.engine.TemplateElementVisitor;
 
 public class Template {
     private final Element element;
@@ -102,19 +101,6 @@ public class Template {
         }
     }    
 
-    void visit(TemplateElementVisitor context) throws IOException {
-        try {
-            element.visit(context);
-        } catch (IOException ex) {
-            throw ex;
-        } catch (TemplateException ex) {
-            throw ex;
-        } catch (Exception ex) {
-            throw new TemplateException(ex.getMessage(), ex);
-        }
-    }
-    
-    
     public String[] getParameters() {
         return parameters;
     }

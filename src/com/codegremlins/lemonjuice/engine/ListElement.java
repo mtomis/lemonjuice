@@ -41,9 +41,4 @@ class ListElement extends Element {
         
         return ls;
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

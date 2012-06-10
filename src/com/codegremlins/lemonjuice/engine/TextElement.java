@@ -39,11 +39,6 @@ class TextElement extends Element {
         return value;
     }
 
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
-
 	public String getValue() {
 		return value;
 	}

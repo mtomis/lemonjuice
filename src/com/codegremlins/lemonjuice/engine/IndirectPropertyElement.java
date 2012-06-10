@@ -56,9 +56,4 @@ class IndirectPropertyElement extends Element {
         
         return getValue(value, name);
     }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
-    }
 }

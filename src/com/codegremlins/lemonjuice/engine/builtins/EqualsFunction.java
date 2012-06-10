@@ -39,24 +39,7 @@ public class EqualsFunction extends FunctionElement {
                 value = Boolean.FALSE;
             }
             
-            // TODO: put equals somewhere else to acount for nulls
             if (!first) {
-/*                if (last instanceof Number && value instanceof Number) {
-                    if (last instanceof Long) {
-                        if (((Number)last).longValue() != ((Number)value).longValue()) {
-                            return false;
-                        }
-                    } else if (last instanceof Integer) {
-                        if (((Number)last).intValue() != ((Number)value).intValue()) {
-                            return false;
-                        }
-                    } else if (!last.equals(value)) {
-                        return false;
-                    }
-                } else if (!last.equals(value)) {
-                    return false;
-                }*/
-            	
             	if (!Functions.compareEqual(last, value)) {
             		return false;
             	}

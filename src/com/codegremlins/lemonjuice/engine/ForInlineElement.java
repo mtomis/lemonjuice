@@ -107,8 +107,7 @@ class ForInlineElement extends Element {
         TemplateContext context = model.child();
         String[] keys = names;
 
-        int i = 0;
-        for (; i < keys.length; i++) {
+        for (int i = 0; i < keys.length; i++) {
             if (i >= parameters.length) {
                 break;
             }
@@ -121,10 +120,5 @@ class ForInlineElement extends Element {
     @Override
     public Object evaluate(TemplateContext model) throws Exception {
         return null;
-    }
-
-    @Override
-    public void visit(TemplateElementVisitor context) throws Exception {
-        context.visit(this);
     }
 }
