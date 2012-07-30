@@ -60,6 +60,20 @@ abstract public class Element {
         }
     }
     
+    protected Object evaluateFlatten(Object value, TemplateContext model) throws Exception {
+        if (value instanceof Template) {
+            return (((Template)value).evaluate(model));
+        } else if (value instanceof TemplateFunction) {
+            TemplateFunction template = (TemplateFunction)value;
+            return template.evaluate(new Object[0]);
+        } else if (value instanceof MessageFormat) {
+        	MessageFormat template = (MessageFormat)value;
+        	return template.format(null);
+        } else {
+            return value;
+        }
+    }
+    
     void bless(String templateName, int line, int column) {
         this.templateName = templateName;
         this.line = line;

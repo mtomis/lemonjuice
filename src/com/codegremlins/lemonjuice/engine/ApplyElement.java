@@ -124,6 +124,18 @@ class ApplyElement extends Element {
             }
               
             return template.evaluate(values);
+        } else if (value instanceof MessageFormat) {
+        	MessageFormat template = (MessageFormat)value;
+            
+            Object[] values = new Object[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                values[i] = parameters[i].evaluate(model);
+                if (values[i] instanceof Template) {
+                    values[i] = ((Template)values[i]).evaluate(model);                    
+                }
+            }
+              
+            return template.format(values);
         } else {
             return error("Cannot apply value as macro: " + value);
         }

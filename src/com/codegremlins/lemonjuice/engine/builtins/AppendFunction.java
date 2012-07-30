@@ -18,7 +18,6 @@
 
 package com.codegremlins.lemonjuice.engine.builtins;
 
-import com.codegremlins.lemonjuice.Template;
 import com.codegremlins.lemonjuice.TemplateContext;
 import com.codegremlins.lemonjuice.engine.Element;
 import com.codegremlins.lemonjuice.engine.FunctionElement;
@@ -34,11 +33,7 @@ public class AppendFunction extends FunctionElement {
 
         for (Element element : parameters()) {
             Object value = element.evaluate(model);
-            if (value instanceof Template) {
-                out.append(((Template)value).evaluate(model));
-            } else {
-                out.append(value);
-            }
+            out.append(evaluateFlatten(value, model));
         }
         
         return out.toString();

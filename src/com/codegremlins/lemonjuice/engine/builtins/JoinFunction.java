@@ -45,11 +45,7 @@ public class JoinFunction extends FunctionElement {
                     out.append(middle);
                 }
                 
-                if (value instanceof Template) {
-                    out.append(((Template)value).evaluate(model));
-                } else {
-                    out.append(value);
-                }
+                out.append(evaluateFlatten(value, model));
             }
         }
         

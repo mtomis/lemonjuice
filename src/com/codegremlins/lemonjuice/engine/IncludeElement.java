@@ -57,10 +57,7 @@ class IncludeElement extends Element {
     }
     
     private Template load(Element element, TemplateContext model) throws Exception {
-        Object value = element.evaluate(model);
-        if (value instanceof Template) {
-            value = ((Template)value).evaluate(model);
-        } 
+        Object value = evaluateFlatten(element.evaluate(model), model);
         
         if (value != null) {
             value = value.toString();
