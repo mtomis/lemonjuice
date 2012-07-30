@@ -20,6 +20,7 @@ package com.codegremlins.lemonjuice.engine;
 
 import java.io.StringWriter;
 import java.io.Writer;
+import java.text.MessageFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -75,6 +76,21 @@ class ApplyElement extends Element {
             }
               
             Object result = template.evaluate(values);
+            if (result != null) {
+                out.write(result.toString());
+            }
+        } else if (value instanceof MessageFormat) {
+        	MessageFormat template = (MessageFormat)value;
+            
+            Object[] values = new Object[parameters.length];
+            for (int i = 0; i < parameters.length; i++) {
+                values[i] = parameters[i].evaluate(model);
+                if (values[i] instanceof Template) {
+                    values[i] = ((Template)values[i]).evaluate(model);                    
+                }
+            }
+              
+            Object result = template.format(values);
             if (result != null) {
                 out.write(result.toString());
             }

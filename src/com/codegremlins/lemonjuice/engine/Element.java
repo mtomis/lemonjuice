@@ -20,6 +20,7 @@ package com.codegremlins.lemonjuice.engine;
 
 import java.io.Writer;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import com.codegremlins.lemonjuice.Printer;
 import com.codegremlins.lemonjuice.Template;
@@ -72,6 +73,8 @@ abstract public class Element {
                 result = ((Map)model).get(name);
             } else if (model instanceof TemplateContext) {
                 result = ((TemplateContext)model).get(name);
+            } else if (model instanceof ResourceBundle) {
+                result = ((ResourceBundle)model).getObject(name);
             } else if (model == null) {
                 return false;
             } else {
