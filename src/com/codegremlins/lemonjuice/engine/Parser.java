@@ -1013,6 +1013,7 @@ public class Parser {
             // LOCALIZE THIS
                 {"Double", new MessageFormat("The disk \"{1}\" contains {0}.")},  // MessageFormat pattern
                 {"Double2", "The disk \"{1}\" contains {0}."},  // MessageFormat pattern
+                {"Three", new MessageFormat("The duck is blue {0}")},  // MessageFormat pattern
                 {"s2", "1"},                               // location of {0} in pattern
                 {"s3", "My Disk"},                         // sample disk name
                 {"s4", "no files"},                        // first ChoiceFormat choice

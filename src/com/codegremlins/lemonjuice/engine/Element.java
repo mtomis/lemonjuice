@@ -19,6 +19,7 @@
 package com.codegremlins.lemonjuice.engine;
 
 import java.io.Writer;
+import java.text.MessageFormat;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -51,6 +52,9 @@ abstract public class Element {
             if (result != null) {
                 out.write(result.toString());
             }            
+        } else if (value instanceof MessageFormat) {
+        	MessageFormat template = (MessageFormat)value;
+        	out.write(template.format(null));
         } else if (value != null) {
             out.write(value.toString());
         }
