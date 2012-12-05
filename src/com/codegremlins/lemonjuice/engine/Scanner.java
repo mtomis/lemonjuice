@@ -251,7 +251,6 @@ class Scanner {
                 case 'n': c = '\n'; break; 
                 case 'r': c = '\r'; break; 
                 case 't': c = '\t'; break; 
-                case '0': c = '\0'; break;
                 case 'u': 
                     c = parseHex();
                     break;
